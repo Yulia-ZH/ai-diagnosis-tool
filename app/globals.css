@@ -1,26 +1,66 @@
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --meituan-yellow: #FFD000;
+  --meituan-yellow-dark: #F5A800;
+  --meituan-yellow-light: #FFF8D6;
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+* {
+  box-sizing: border-box;
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: -apple-system, BlinkMacSystemFont, 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif;
+  background: #F7F8FA;
 }
+
+.chat-bubble-user {
+  background: #FFD000;
+  color: #1A1A1A;
+  border-radius: 18px 18px 4px 18px;
+}
+
+.chat-bubble-ai {
+  background: #FFFFFF;
+  color: #1A1A1A;
+  border-radius: 18px 18px 18px 4px;
+  border: 1px solid #E8E8E8;
+}
+
+.typing-dot {
+  animation: typing 1.4s infinite;
+}
+.typing-dot:nth-child(2) { animation-delay: 0.2s; }
+.typing-dot:nth-child(3) { animation-delay: 0.4s; }
+
+@keyframes typing {
+  0%, 60%, 100% { transform: translateY(0); opacity: 0.4; }
+  30% { transform: translateY(-6px); opacity: 1; }
+}
+
+.module-card {
+  transition: all 0.2s ease;
+  cursor: pointer;
+}
+.module-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 16px rgba(255, 208, 0, 0.3);
+}
+.module-card.selected {
+  border-color: #FFD000;
+  background: #FFF8D6;
+}
+
+/* Markdown 样式 */
+.prose h2 { font-size: 1.1rem; font-weight: 700; margin: 1rem 0 0.5rem; color: #1A1A1A; }
+.prose h3 { font-size: 1rem; font-weight: 600; margin: 0.8rem 0 0.4rem; color: #333; }
+.prose p { margin: 0.4rem 0; line-height: 1.7; }
+.prose ul { padding-left: 1.2rem; margin: 0.4rem 0; }
+.prose li { margin: 0.2rem 0; line-height: 1.6; }
+.prose strong { color: #1A1A1A; font-weight: 600; }
+.prose .highlight { background: #FFF0A0; padding: 0 3px; border-radius: 3px; }
+.prose hr { border-color: #E8E8E8; margin: 0.8rem 0; }
+
+.scrollbar-hide::-webkit-scrollbar { display: none; }
+.scrollbar-hide { -ms-overflow-style: none; scrollbar-width: none; }
