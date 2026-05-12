@@ -99,6 +99,8 @@ export default function Home() {
       role: "assistant",
       content: `## 👋 你好！我是自媒体账号 AI 诊断师
 
+**🔗 支持真实数据抓取** — 直接粘贴账号链接，我会自动抓取粉丝数、点赞数、近期内容等真实数据再进行分析！
+
 我可以帮你：
 - 🏥 **账号健康诊断** — 互动率、赞藏比、增长趋势全面体检
 - 🔥 **爆款方向分析** — 提炼你账号的爆款公式
@@ -107,14 +109,11 @@ export default function Home() {
 - 📝 **完整脚本生成** — 直接可发布的图文/视频脚本
 - 🎯 **对标账号拆解** — 深度分析竞品，找差异化机会
 
-**支持平台**：小红书 / 抖音 / B站 / 公众号
+**支持平台**：小红书 / 抖音 / B站
 
 ---
 
-**开始方式**：
-1. 直接把你的账号主页链接发给我
-2. 或者告诉我你的账号名称和平台
-3. 也可以先选择下方的诊断模块
+**开始方式**：直接把账号主页链接发给我，系统会自动抓取真实数据 📊
 
 你的账号链接是？`,
     },
@@ -147,13 +146,18 @@ export default function Home() {
     setShowModules(false);
 
     // 检测账号链接
-    const urlPattern = /(https?:\/\/[^\s]+|小红书|抖音|B站|bilibili|douyin|xiaohongshu)/i;
-    if (urlPattern.test(content) && !accountInfo) {
+    const urlPattern = /(https?:\/\/[^\s]+)/i;
+    const hasUrl = urlPattern.test(content);
+    if (hasUrl && !accountInfo) {
       setAccountInfo(content);
     }
 
-    // 添加 AI 占位消息
-    const aiPlaceholder: Message = { role: "assistant", content: "", isStreaming: true };
+    // 添加 AI 占位消息（有链接时显示抓取提示）
+    const aiPlaceholder: Message = {
+      role: "assistant",
+      content: hasUrl ? "⏳ 正在抓取账号真实数据，请稍候..." : "",
+      isStreaming: true,
+    };
     setMessages([...newMessages, aiPlaceholder]);
 
     try {
